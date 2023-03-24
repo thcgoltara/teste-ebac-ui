@@ -1,27 +1,47 @@
 /// <reference types="cypress" />
+const perfil = require('../fixtures/perfil.json')
 
-context('Funcionalidade Login', () =>{
+context('Funcionalidade Login', () => {
 
     beforeEach(() => {
-        cy.visit('http://lojaebac.ebaconline.art.br/minha-conta/')
-      });
-    
+        cy.visit('minha-conta')
+    });
+
     afterEach(() => {
         cy.screenshot()
     });
 
-    it('Login Válido', () =>{
+    it('Login Válido', () => {
         cy.get('#username').type('aluno_ebac@teste.com')
         cy.get('#password').type('teste@teste.com')
         cy.get('.woocommerce-form > .button').click()
-        cy.get('.page-title').should('contain' , 'Minha conta')
+        cy.get('.page-title').should('contain', 'Minha conta')
     })
 
-    it('Login Inválido', () =>{
+    it('Login Inválido', () => {
         cy.get('#username').type('aluno_ebac@teste.com')
         cy.get('#password').type('teste@')
         cy.get('.woocommerce-form > .button').click()
-        cy.get('.woocommerce-error > li').should('contain' , 'Erro')
+        cy.get('.woocommerce-error > li').should('contain', 'Erro')
 
     })
-})
+
+    it('Deve Fazer login com sucesso - Usando Arquivo de Dados', () => {
+        cy.get('#username').type(perfil.perfil)
+        cy.get('#password').type(perfil.senha)
+        cy.get('.woocommerce-form > .button').click()
+        cy.get('.page-title').should('contain', 'Minha conta')
+
+    })
+
+    it.only('Deve Fazer login com sucesso - Usando Fixtures', () => {
+        cy.fixture('perfil').then(dados => {
+            cy.get('#username').type(dados.perfil)
+            cy.get('#password').type(dados.senha, {log: false})
+            cy.get('.woocommerce-form > .button').click()
+            cy.get('.page-title').should('contain', 'Minha conta')
+
+        })
+    });
+
+});
