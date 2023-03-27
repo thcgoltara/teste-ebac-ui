@@ -34,7 +34,7 @@ context('Funcionalidade Login', () => {
 
     })
 
-    it.only('Deve Fazer login com sucesso - Usando Fixtures', () => {
+    it('Deve Fazer login com sucesso - Usando Fixtures', () => {
         cy.fixture('perfil').then(dados => {
             cy.get('#username').type(dados.perfil)
             cy.get('#password').type(dados.senha, {log: false})
