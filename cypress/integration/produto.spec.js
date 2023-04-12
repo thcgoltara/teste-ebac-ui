@@ -34,7 +34,7 @@ describe('Funcionalidade Página de Produtos', () => {
        cy.addProdutos('Aero Daily Fitness Tee', 'M', 'Black', 2)
     });
 
-    it.only('Deve adicionar produtos ao carrinho - Usando comando Customizado', () => {
+    it('Deve adicionar produtos ao carrinho - Usando comando Customizado', () => {
         cy.addProdutos('Abominable Hoodie', 'XS', 'Blue', 2)
      });
 });
